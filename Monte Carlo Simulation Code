@@ -1,0 +1,26 @@
+### Supplementary Material: Monte Carlo Simulation Code
+
+The following Python script was used for Monte Carlo estimation of the minimum number of planets with life:
+
+```python
+import numpy as np
+
+# Parameters
+N_planets = 10**24
+T_planets = 7.5 * 10**9
+T_life = 0.8 * 10**9
+N_attempts = N_planets * (T_planets / T_life)
+
+P_min = 1 / N_planets
+P_max = np.sqrt(P_min)
+
+iterations = 10_000
+P_life_samples = np.random.uniform(P_min, P_max, iterations)
+S_min_samples = N_attempts * P_life_samples
+
+# Compute confidence intervals
+S_min_5th = np.percentile(S_min_samples, 5)
+S_min_95th = np.percentile(S_min_samples, 95)
+
+print(f"5th percentile: {S_min_5th}")
+print(f"95th percentile: {S_min_95th}")
